@@ -22,6 +22,7 @@ namespace Demo.Paint
                 _sin[i] = (float) Math.Sin(i * 2 * Math.PI / 360.0);
                 _cos[i] = (float) Math.Cos(i * 2 * Math.PI / 360.0);
             }
+            
             InitializeComponent();            
         }
 
@@ -37,7 +38,7 @@ namespace Demo.Paint
            
 
             int angle = DateTime.Now.Second * 6 + 270;
-            for (int i = 0; i < 12; i++)
+            for (int i = 1; i <= 12; i++)
             {
                 gr.DrawString(i.ToString(), f, b, new PointF
                 {
@@ -45,6 +46,7 @@ namespace Demo.Paint
                     Y = - 12 + center.Y + (ArrowLength+20) * _sin[(i*30 + 270) % 360],
                 });
             }
+            //Minute dash
             for (int i = 0; i < 360; i += 6 )
             {
                
@@ -61,13 +63,31 @@ namespace Demo.Paint
                     Y = center.Y + ArrowLength * _sin[i % 360],
                 });
             }
-            
+            //Hour dash
+            for (int i = 0; i < 360; i += 30)
+            {
+
+                gr.DrawLine(Pens.Black, new PointF
+                {
+                    X = center.X + (ArrowLength - 20) * _cos[i % 360],
+                    Y = center.Y + (ArrowLength - 20) * _sin[i % 360],
+                }
+                ,
+
+                    new PointF
+                    {
+                        X = center.X + ArrowLength * _cos[i % 360],
+                        Y = center.Y + ArrowLength * _sin[i % 360],
+                    });
+            }
+            //Second hand
             gr.DrawLine(Pens.Red,
                 center,
                 new PointF {
                     X=center.X + ArrowLength * _cos[angle % 360],
                     Y = center.Y + ArrowLength * _sin[angle % 360],
                 });
+            //Minute hand
             int angMin = DateTime.Now.Minute * 6 + 270;
             gr.DrawLine(Pens.Blue,
                center,
@@ -76,6 +96,7 @@ namespace Demo.Paint
                    X = center.X + ArrowLength*4/5 * _cos[angMin % 360],
                    Y = center.Y + ArrowLength*4/5 * _sin[angMin % 360],
                });
+            //Hour hand
             int angHr = DateTime.Now.Hour%12 * 30 + 270;
             gr.DrawLine(Pens.Green,
                center,
