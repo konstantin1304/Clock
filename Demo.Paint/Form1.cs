@@ -22,7 +22,6 @@ namespace Demo.Paint
                 _sin[i] = (float) Math.Sin(i * 2 * Math.PI / 360.0);
                 _cos[i] = (float) Math.Cos(i * 2 * Math.PI / 360.0);
             }
-
             InitializeComponent();            
         }
 
